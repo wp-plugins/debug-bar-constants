@@ -2,8 +2,8 @@
 /*
 Plugin Name: Debug Bar Constants
 Plugin URI: http://wordpress.org/extend/plugins/debug-bar-constants/
-Description: Debug Bar Constants adds a new panel to Debug Bar that displays all the defined constants for the current request. Requires "Debug Bar" plugin.
-Version: 1.0
+Description: Debug Bar Constants adds new panels to Debug Bar that display all the defined constants for the current request. Requires "Debug Bar" plugin.
+Version: 1.2
 Author: Juliette Reinders Folmer
 Author URI: http://www.adviesenzo.nl/
 Text Domain: debug-bar-constants
@@ -37,14 +37,20 @@ if( !function_exists('add_action') ) {
 }
 
 /**
- * Show notice if debug-bar plugin not active
+ * Show notice & de-activate itself if debug-bar plugin not active
  */
+add_action( 'admin_init', 'dbc_has_parent_plugin' );
+
 if( !function_exists( 'dbc_has_parent_plugin' ) && !function_exists( 'dbc_missing_parent_plugin' ) ) {
 
-	add_action( 'admin_init', 'dbc_has_parent_plugin' );
 	function dbc_has_parent_plugin() {
-		if( is_admin() && !class_exists( 'Debug_Bar' ) ) {
+		if( is_admin() && ( !class_exists( 'Debug_Bar' ) && current_user_can( 'activate_plugins' ) ) ) {
 			add_action( 'admin_notices', 'dbc_missing_parent_plugin' );
+
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+	        if ( isset( $_GET['activate'] ) ) {
+			   unset( $_GET['activate'] );
+			}
 		}
 	}
 
@@ -56,16 +62,18 @@ if( !function_exists( 'dbc_has_parent_plugin' ) && !function_exists( 'dbc_missin
 }
 
 
-if( !function_exists( 'debug_bar_constants_panel' ) ) {
+
+if( !function_exists( 'debug_bar_constants_panels' ) ) {
 
 	// Low prio, no need for it to be high up in the list
-	add_filter( 'debug_bar_panels', 'debug_bar_constants_panel', 12 );
+	add_filter( 'debug_bar_panels', 'debug_bar_constants_panels', 12 );
 
-    function debug_bar_constants_panel( $panels ) {
-		if( !class_exists( 'Debug_Bar_WP_Constants' ) && !class_exists( 'Debug_Bar_PHP_Constants' ) ) {
+    function debug_bar_constants_panels( $panels ) {
+		if( ( !class_exists( 'Debug_Bar_WP_Constants' ) && !class_exists( 'Debug_Bar_WP_Class_Constants' ) ) && !class_exists( 'Debug_Bar_PHP_Constants' ) ) {
 			require_once 'class-debug-bar-constants.php';
 		}
         $panels[] = new Debug_Bar_WP_Constants();
+        $panels[] = new Debug_Bar_WP_Class_Constants();
         $panels[] = new Debug_Bar_PHP_Constants();
         return $panels;
     }
