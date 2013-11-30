@@ -4,7 +4,7 @@
  *
  * @package WordPress\Plugins\Debug Bar Constants
  * @since 1.0
- * @version 1.2.1.1
+ * @version 1.2.1.2
  *
  * @author Juliette Reinders Folmer
  *
@@ -28,8 +28,8 @@ if ( !class_exists( 'Debug_Bar_Constants' ) && class_exists( 'Debug_Bar_Panel' )
 	// Base class
 	class Debug_Bar_Constants extends Debug_Bar_Panel {
 
-		const DBC_STYLES_VERSION = '1.2';
-		const DBC_SCRIPT_VERSION = '1.2dbc-a';
+		const DBC_STYLES_VERSION = '1.2.1.2';
+		const DBC_SCRIPT_VERSION = '1.2dbc-a-';
 
 		const DBC_NAME = 'debug-bar-constants';
 
@@ -46,7 +46,7 @@ if ( !class_exists( 'Debug_Bar_Constants' ) && class_exists( 'Debug_Bar_Panel' )
 		}
 
 		public function enqueue_scripts() {
-			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '' );
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
 			wp_enqueue_style( self::DBC_NAME, plugins_url( 'css/debug-bar-constants' . $suffix . '.css', __FILE__ ), array( 'debug-bar' ), self::DBC_STYLES_VERSION );
 			wp_enqueue_script( self::DBC_NAME, plugins_url( 'js/jquery.ui.totop' . $suffix . '.js', __FILE__ ), array( 'jquery' ), self::DBC_SCRIPT_VERSION, true );
 		}

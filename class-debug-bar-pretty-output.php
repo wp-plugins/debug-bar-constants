@@ -4,7 +4,7 @@
  *
  * @package WordPress\Plugins\Debug Bar Constants
  * @since 1.2
- * @version 1.2.1.1
+ * @version 1.2.1.2
  *
  * @author Juliette Reinders Folmer
  *
@@ -94,9 +94,9 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 					print '<b><i>b</i></b> ';
 				}
 				print '<i>'
-					. ( ( $var === false ) ? '<span style="color: #FF0000; background-color: transparent;">false</span>' : ( ( $var === true ) ? '<span style="color: #336600; background-color: transparent;">true</span>' : __( 'undetermined', $context ) ) );
+					. ( ( $var === false ) ? '<span style="color: #FF0000; background-color: transparent;">false</span>' : ( ( $var === true ) ? '<span style="color: #336600; background-color: transparent;">true</span>' : __( 'undetermined', $context ) ) ) . ' </i>';
 				if ( $short !== true ) {
-					print ' </i>)';
+					print ')';
 				}
 				print '</span><br />';
 			}
@@ -209,7 +209,7 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 		 *
 		 * @param   object  $obj        Object for which to show the properties and methods
 		 * @param   string  $context    (internal) Output context
-		 * @param   bool    $is_sub     (internal) Toplevel or nested object
+		 * @param   bool    $is_sub     (internal) Top level or nested object
 		 */
 		public static function ooutput( $obj, $context = self::CONTEXT, $is_sub = false ) {
 
@@ -286,7 +286,6 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 		 * @param   string|array    $class  One or more CSS classes to add to the table
 		 */
 		public static function render_table_start( $col1, $col2, $class = null ) {
-
 			echo '
 		<table class="' . $class . '">
 			<thead>
@@ -305,7 +304,6 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 		 * @param   string          $context
 		 */
 		public static function render_table_rows( $array, $context = self::CONTEXT ) {
-
 			foreach ( $array as $key => $value ) {
 				self::render_table_row( $key, $value, $context );
 			}
@@ -319,7 +317,6 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 		 * @param   string  $context
 		 */
 		public static function render_table_row( $key, $value, $context = self::CONTEXT ) {
-
 			echo '
 			<tr>
 				<th>
@@ -344,7 +341,6 @@ if ( !class_exists( 'Debug_Bar_Pretty_Output' ) && class_exists( 'Debug_Bar_Pane
 		 * Generate table closing
 		 */
 		public static function render_table_end() {
-
 			echo '
 			</tbody>
 		</table>
