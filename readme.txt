@@ -3,7 +3,7 @@ Contributors: jrf
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=995SSNDTCVBJG
 Tags: debugbar, debug-bar, Debug Bar, Constants, Debug Bar Constants
 Requires at least: 3.1
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.3.1
 Depends: Debug Bar
 License: GPLv2
