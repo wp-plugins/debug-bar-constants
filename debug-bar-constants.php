@@ -5,7 +5,7 @@
  * @package     WordPress\Plugins\Debug Bar Constants
  * @author      Juliette Reinders Folmer <wpplugins_nospam@adviesenzo.nl>
  * @link        https://github.com/jrfnl/Debug-Bar-Constants
- * @version     1.3.1
+ * @version     1.4
  *
  * @copyright   2013-2014 Juliette Reinders Folmer
  * @license     http://creativecommons.org/licenses/GPL/2.0/ GNU General Public License, version 2 or higher
@@ -14,7 +14,7 @@
  * Plugin Name: Debug Bar Constants
  * Plugin URI:  http://wordpress.org/extend/plugins/debug-bar-constants/
  * Description: Debug Bar Constants adds new panels to Debug Bar that display all the defined constants for the current request. Requires "Debug Bar" plugin.
- * Version:     1.3.1
+ * Version:     1.4
  * Author:      Juliette Reinders Folmer
  * Author URI:  http://www.adviesenzo.nl/
  * Depends:     Debug Bar
@@ -41,7 +41,7 @@ if ( ! function_exists( 'dbc_has_parent_plugin' ) ) {
 	 */
 	function dbc_has_parent_plugin() {
 		if ( is_admin() && ( ! class_exists( 'Debug_Bar' ) && current_user_can( 'activate_plugins' ) ) ) {
-			add_action( 'admin_notices', create_function( null, 'echo \'<div class="error"><p>\' . sprintf( __( \'Activation failed: Debug Bar must be activated to use the <strong>Debug Bar Constants</strong> Plugin. %sVisit your plugins page to activate.\', \'debug-bar-constants\' ), \'<a href="\' . admin_url( \'plugins.php#debug-bar\' ) . \'">\' ) . \'</a></p></div>\';' ) );
+			add_action( 'admin_notices', create_function( null, 'echo \'<div class="error"><p>\', sprintf( __( \'Activation failed: Debug Bar must be activated to use the <strong>Debug Bar Constants</strong> Plugin. %sVisit your plugins page to activate.\', \'debug-bar-constants\' ), \'<a href="\' . admin_url( \'plugins.php#debug-bar\' ) . \'">\' ), \'</a></p></div>\';' ) );
 
 			deactivate_plugins( plugin_basename( __FILE__ ) );
 			if ( isset( $_GET['activate'] ) ) {
